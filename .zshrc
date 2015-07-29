@@ -5,9 +5,8 @@ export ZSH=/home/rael/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="robbyrussell"
-#ZSH_THEME="kolo"
-#ZSH_THEME="powerlevel9k/powerlevel9k"
+#ZSH_THEME="robbyrussell"
+ZSH_THEME="powerlevel9k/powerlevel9k"
 #POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir rbenv vcs)
 #POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status history time)
 
@@ -58,6 +57,8 @@ plugins=(git lol common-aliases debian mvn svn )
 # User configuration
 
 export PATH="/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games"
+export PATH="${PATH}:${HOME}/.bin"
+
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
@@ -86,3 +87,4 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+#
