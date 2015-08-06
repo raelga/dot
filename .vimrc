@@ -41,6 +41,7 @@ Plugin 'leshill/vim-json'
 Plugin 'pangloss/vim-javascript'
 Plugin 'adragomir/javacomplete'
 Plugin 'kchmck/vim-coffee-script'
+Plugin 'davidhalter/jedi-vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -109,6 +110,17 @@ set expandtab       " npi2
 au FileType bash,sh,zsh,python,javascript,html autocmd CursorMoved * exe printf('match IncSearch /\V\<%s\>/', escape(expand('<cword>'), '/\'))
 hi Incsearch ctermfg=166
 hi Incsearch ctermbg=15
+
+" Powerline
+" let g:Powerline_symbols = 'fancy'
+" let g:Powerline_dividers_override = [[0xe0b0], [0xe0b1], [0xe0b2], [0xe0b3]]
+" let g:Powerline_symbols_override = {
+"   \ 'BRANCH': [0xe238],
+"   \ 'RO'    : [0xe0a2],
+"   \ 'FT'    : [0xe1f6],
+"   \ 'LINE'  : [0xe0a1],
+"   \ }
+
 
 ""
 ""  Mappings

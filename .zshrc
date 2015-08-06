@@ -5,10 +5,14 @@ export ZSH=/home/rael/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-#ZSH_THEME="robbyrussell"
-ZSH_THEME="powerlevel9k/powerlevel9k"
+ZSH_THEME="ys"
+#ZSH_THEME="powerlevel9k/powerlevel9k"
+
+#POWERLEVEL9K_MODE='awesome-patched'
+#POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir rbenv vcs)
 #POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir rbenv vcs)
 #POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status history time)
+#POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=()
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -52,7 +56,7 @@ ZSH_THEME="powerlevel9k/powerlevel9k"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git lol common-aliases debian mvn svn )
+plugins=(git lol common-aliases debian mvn svn systemd)
 
 # User configuration
 
@@ -84,7 +88,23 @@ source $ZSH/oh-my-zsh.sh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
 #
+
 # Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-#
+alias zshconfig="vim ~/.zshrc"
+alias ohmyzsh="vim ~/.oh-my-zsh"
+alias rh='rehash'
+
+if [[ `hostname`=="hera" ]];
+then
+    # dev
+    export iHOME="${HOME}/w/ip"
+    alias pfram="${iHOME}/providers/play-1.2.5/play"
+    alias ipp="${iHOME}/p/p.sh"
+    alias ipk="${iHOME}/k/k.sh"
+
+    #log
+    export pLOGS="${iHOME}/p/jetty/logs"
+    alias ippe="less ${pLOGS}/*stderrout.log"
+    # ssh
+    alias rh1="ssh root@hidra-01"
+fi
