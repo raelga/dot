@@ -107,4 +107,5 @@ then
     alias ippe="less ${pLOGS}/*stderrout.log"
     # ssh
     alias rh1="ssh root@hidra-01"
+    alias rh5="ssh root@hidra-05"
 fi
