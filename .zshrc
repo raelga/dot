@@ -94,7 +94,7 @@ alias zshconfig="vim ~/.zshrc"
 alias ohmyzsh="vim ~/.oh-my-zsh"
 alias rh='rehash'
 
-if [[ `hostname`=="hera" ]];
+if [[ $(hostname) = "hera" ]];
 then
     # dev
     export iHOME="${HOME}/w/ip"
