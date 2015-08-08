@@ -109,3 +109,8 @@ then
     alias rh1="ssh root@hidra-01"
     alias rh5="ssh root@hidra-05"
 fi
+
+alias rsmove='rsync -Cav --progress --remove-source-files'
+alias locate='locate -i'
+
+export PATH=${HOME}/.scripts:${PATH}
