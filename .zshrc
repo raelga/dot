@@ -63,6 +63,8 @@ plugins=(git lol common-aliases debian mvn svn systemd)
 export PATH="/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games"
 export PATH="${PATH}:${HOME}/.bin"
 
+if [ ${UID} -eq -0 ]; then export PATH="${PATH}:/sbin:/usr/sbin"; fi
+
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
