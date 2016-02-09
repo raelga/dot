@@ -1,0 +1,24 @@
+#!/bin/bash
+#
+#
+# Genetarte all my dot files
+
+DOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+# Check if dot repo exists
+if [[ ! -d "${DOT_DIR}/bork/.git" ]]; then
+    echo "missing: bork"
+    git clone https://github.com/mattly/bork.git ${DOT_DIR}/bork \
+        2>1 >/dev/null && echo "ok: bork" || echo "error: bork"
+else
+    git --work-tree=${DOT_DIR}/bork --work-tree=${DOT_DIR}/bork pull
+
+    git --work-tree=${DOT_DIR}/bork --work-tree=${DOT_DIR}/bork pull \
+        2>1 >/dev/null && echo "ok: bork" || echo "error: bork"
+fi
+
+# Make sure dotfile repo is up to date
+git pull https://github.com/raelga/dot.git \
+    2>1 >/dev/null && echo "ok: dot" || echo "error: dot"
+
+#EOF
