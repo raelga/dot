@@ -1,21 +1,35 @@
-dot files
+dotfiles
+========
 
+Bork-based dotfile setup 
 
-uxrvt
+### Features
 
-source
+* Dot files using bork.
+* zsh + antigen
 
- http://dist.schmorp.de/rxvt-unicode/
+### Install
 
-some deps
+1. git clone https://github.com/raelga/dot.git ${HOME}/.dot
+2. cd ${HOME}/.dot
+3. ./dot
 
-libperl-dev
-
-configure ops
+### Commands
 
 ```
-./configure --enable-256-color --enable-unicode3 --enable-combining \
-            --enable-xft --enable-font-styles --enable-transparency \
-            --enable-fading --enable-rxvt-scroll --enable-mousewheel \
-            --enable-pointer-blank --enable-selectionscrolling
+# Install and update bork and dot files.
+$ ./dot
 ```
+
+### Info
+
+```
+./borks
+└── Bork files.
+./config
+└── Config files.
+```
+
+### Credit
+
+* [frdmn](https://github.com/frdmn/dotfiles)
