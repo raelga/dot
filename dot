@@ -3,22 +3,56 @@
 #
 # Genetarte all my dot files
 
+DBG=0
 DOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-# Check if dot repo exists
-if [[ ! -d "${DOT_DIR}/bork/.git" ]]; then
-    echo "missing: bork"
-    git clone https://github.com/mattly/bork.git ${DOT_DIR}/bork \
-        2>1 >/dev/null && echo "ok: bork" || echo "error: bork"
-else
-    git --work-tree=${DOT_DIR}/bork --work-tree=${DOT_DIR}/bork pull
+ko() {
+  echo "ko: $@"
+}
 
-    git --work-tree=${DOT_DIR}/bork --work-tree=${DOT_DIR}/bork pull \
-        2>1 >/dev/null && echo "ok: bork" || echo "error: bork"
-fi
+ok() {
+  echo "ok: $@"
+}
 
-# Make sure dotfile repo is up to date
-git pull https://github.com/raelga/dot.git \
-    2>1 >/dev/null && echo "ok: dot" || echo "error: dot"
+info() {
+ if [[ ${DBG} -ge 1 ]]; then echo "info: $@"; fi
+}
+
+debug() {
+ if [[ ${DBG} -ge 2 ]]; then echo "debug: $@"; fi
+}
+
+github_repo() {
+
+  GIT_REPO="$1"
+  LOCAL_REPO="$2"
+  
+  if   [[ -z "${GIT_REPO}" ]]; then ko "git repo missing";
+  elif [[ -z "${LOCAL_REPO}" ]]; then ko "git folder missing";
+  else
+
+    GIT_URL="https://github.com/${GIT_REPO}.git"
+    REPO_USER="$( echo ${GIT_REPO} | cut -d'/' -f1 )"
+    REPO_NAME="$( echo ${GIT_REPO} | cut -d'/' -f2 )"
+    
+    # Check if the repo exists.
+    if [[ ! -d "${LOCAL_REPO}/.git" ]]; then
+      # Clone the repo.
+      info "${REPO_NAME} is missing"
+      debug "git clone ${GIT_URL} ${LOCAL_REPO}"
+      git clone ${GIT_URL} ${LOCAL_REPO} \
+        2>1 >/dev/null && ok github ${GIT_REPO} || ko github ${GIT_REPO}
+    else
+      # Update existing repo.
+      info "${GIT_REPO} found."
+      debug "git --git-dir=${LOCAL_REPO}/.git --work-tree=${LOCAL_REPO} pull"
+      git --git-dir=${LOCAL_REPO}/.git --work-tree=${LOCAL_REPO} pull \
+        2>1 >/dev/null && ok github ${GIT_REPO} || ko github ${GIT_REPO}
+    fi
+  fi
+}
+
+github_repo "raelga/dot" "${DOT_DIR}"
+github_repo "mattly/bork" "${DOT_DIR}/bork"
 
 #EOF
