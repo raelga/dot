@@ -1,7 +1,7 @@
-dotfiles
+dot
 ========
 
-Bork-based dotfile setup 
+Bork-based dot files setup 
 
 ### Features
 
