@@ -1,0 +1,277 @@
+" -----------------------------------------------------------------------------
+" @raelga dotvim 2017
+" -----------------------------------------------------------------------------
+" -----------------------------------------------------------------------------
+
+" -----------------------------------------------------------------------------
+" Vundle
+" -----------------------------------------------------------------------------
+
+set nocompatible                        " Sorry vi :'(
+filetype off
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+
+call vundle#begin()
+
+" Utils
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'scrooloose/nerdtree'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'tpope/vim-repeat'
+Plugin 'tpope/vim-surround'
+" Languages
+Plugin 'vim-perl/vim-perl'
+Plugin 'scrooloose/syntastic'
+" Git
+Plugin 'airblade/vim-gitgutter'
+" Interface
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'majutsushi/tagbar'
+" Format
+Plugin 'Yggdroot/indentLine'
+Plugin 'michalliu/jsruntime.vim'
+Plugin 'michalliu/jsflakes.vim'
+Plugin 'michalliu/jsoncodecs.vim'
+Plugin 'michalliu/sourcebeautify.vim'   " <Leader>sb
+" Themes
+Plugin 'altercation/vim-colors-solarized'
+
+call vundle#end()            " required
+
+" -----------------------------------------------------------------------------
+" Vundle Plugins Configuration
+" -----------------------------------------------------------------------------
+
+" NerdTree - Sidebar folder navigation
+"
+let NERDTreeShowLineNumbers=1           " Show line numbers in NT
+let NERDTreeShowBookmarks=1             " Show bookmakrs in NT
+let NERDTreeChDirMode=2                 " CWD changes when NT root changes
+let NERDTreeWinSize=35                  " NT window witdh
+
+noremap <Leader>, :NERDTreeToggle<cr>   " Toggle > NERDTree window
+
+" ctrlpvim
+"
+
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+  \ 'file': '\v\.(swp|so|dll|exe)$' }   " Ignore some dirs/expensions
+
+" vim-gitgutter
+"
+let g:gitgutter_enabled = 1
+let g:gitgutter_highlight_lines = 1
+nmap ]h <Plug>GitGutterNextHunk
+nmap [h <Plug>GitGutterPrevHunk
+nmap <Leader>hs <Plug>GitGutterStageHunk
+nmap <Leader>hu <Plug>GitGutterUndoHunk
+nmap <Leader>hp <Plug>GitGutterPreviewHunk
+
+" vim-airline
+"
+let g:airline_powerline_fonts = 1       " Populate the g:airline_symbols
+" Automatically displays all buffers when there's only one tab open
+let g:airline#extensions#tabline#enabled = 1
+
+"
+" identLine
+let g:indentLine_enabled = 1            " Enable on start
+
+" Syntastic
+"
+let g:syntastic_enable_perl_checker = 1
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+"
+" jsflakes
+let g:jsflakes_autolint = 1             " Enable on start
+au FileType html source $VIM\vimfiles\ftplugin\javascript\jsflakes.vim
+
+" TabBar
+"
+map <leader>tb :TagbarToggle<cr>        " TagBar > Toggle (toggle file tags)
+
+" -----------------------------------------------------------------------------
+" Interface
+" -----------------------------------------------------------------------------
+
+set nocompatible                        " Sorry vi :'(
+set laststatus=2                        " Show the status line
+
+set visualbell                          " Screen blink instead of beeping
+set noerrorbells                        " Don't ring the bell on errors
+
+set listchars=tab:▸\ ,eol:¬,extends:#,nbsp:.,trail:.
+set list                                " Show hidden characters (customized)
+
+colorscheme jellybeans                  " Default theme
+
+let g:Powerline_symbols = 'fancy'       " Powerline symbols set
+
+set number                              " Show line numbers column
+set numberwidth=3                       " Line number column width
+set cursorline                          " Highlight the current line
+set cursorcolumn                        " Highlight the current column
+set guicursor+=a:blinkon0               " Turn off cursor blinking
+set ruler                               " Show the line and column number
+
+" -----------------------------------------------------------------------------
+" Format
+" -----------------------------------------------------------------------------
+
+" Syntax
+syntax on                               " Enable syntax highlighting
+
+" Identation
+set autoindent                          " Auto identation
+set smartindent                         " Smart identation
+set tabstop=2                           " Tab lenght
+set shiftwidth=2                        " Tab lenght (backwards compatible)
+set expandtab                           " Expand tabs to spaces
+
+" Text formating
+set textwidth=79                        " Line width, 79 + newline = 80 ;)
+set formatoptions=qrn1                  " Details at :help fo-table"
+"
+if exists('+colorcolumn')
+  set colorcolumn=+1                    " Show marker at line <textwidth + 1>
+endif
+
+highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+match OverLength /\%81v.\+/             " Red background beyond column 80
+
+" Folding
+set foldmethod=indent                   " Use ident for folding
+
+" -----------------------------------------------------------------------------
+" Vim behaviour
+" -----------------------------------------------------------------------------
+
+" History
+set history=500                         " Command lines that are remembered
+
+" Search
+set incsearch                           " Show search results while typing
+set ignorecase                          " Case insensitive search
+set smartcase                           " Case sensitive if upper chars used
+set hlsearch                            " Highlight matches
+
+" Scrolling
+set scrolloff=10                        " Scroll with 10 line buffer
+
+" Backup
+set nobackup                            " Don't backup before overwriting
+set writebackup                         " Just while is being written
+
+" Backspace
+set backspace=indent,eol,start          " Backspaces over everything in insert
+
+" -----------------------------------------------------------------------------
+" Keybindings
+" -----------------------------------------------------------------------------
+
+" Clear recent search highlighting with space
+nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
+
+let mapleader = ','
+
+" Vim
+map <leader>vrc :source ~/.vimrc<cr>    " Vim > Reload > Config
+map <leader>vec :new ~/.vimrc<cr>       " Vim  > Edit > Config (in a window)
+map <leader>smc :set cc=40,+1<cr>       " Show Middle Column marker (40)
+
+" Format
+map <leader>tts :%s/\s\+$//<cr>         " Trim > Traling > Spaces
+
+" Tabs
+map <Leader>tn :tabnew<cr>              " Tabs > New (Opens a new tab)
+map <Leader>tp :tabprevious<cr>         " Tabs > Previous (Move to prev tab)
+map <Leader>tn :tabnext<cr>             " Tabs > Next (Move to next tab)
+map <Leader>tc :tabclose<cr>            " Tabs : Close (Close current tab)
+
+" Utils
+
+" Launch bash
+map <leader>term :!bash<cr>
+" Run spellcheck (us)
+map <leader>spc :setlocal spell! spelllang=en_us<CR>
+" cd to directory of current file
+map <leader>cd :cd %:p:h<cr>
+"
+" Normal Mode
+"
+
+" Move single lines up-down
+nmap <c-up> ddkP
+nmap <c-down> ddp
+
+" Resize vertical windows
+nmap + <c-w>+
+nmap _ <c-w>-
+
+" Resize horizontal windows
+nmap > <c-w>>
+nmap < <c-w><
+
+" Insert on empty line, with lines above and below
+nmap oo o<Esc>O
+
+" Copy all lines that match a search on a new window including line numbers
+nmap <leader>s :redir @a<cr>:g//<cr>:redir END<cr>:new<cr>:put! a<cr><cr>zRggd<cr>
+
+" ; --> : for command inputs on normal
+nnoremap ; :
+
+"
+" Insert mode
+"
+
+" Exit insert mode with
+inoremap jj <Esc>
+
+" Autocompletion
+imap <Leader><Tab> <C-X><C-O>
+
+" -----------------------------------------------------------------------------
+" Shortcuts
+" -----------------------------------------------------------------------------
+
+" Save files as root without prior sudo
+cmap w!! w !sudo tee % >/dev/null
+
+" -----------------------------------------------------------------------------
+" Filetype customizations
+" -----------------------------------------------------------------------------
+
+filetype plugin on                      " Enable perl filetype file
+filetype plugin indent on               " Enable language-dependent indenting
+
+" perl    --> ftplugin/perl.vim
+" python  --> ftplugin/python.vim
+" haskell --> ftplugin/haskell.vim
+"
+" Some help for filetype match
+au BufRead,BufNewFile *.t,*.cgi set filetype=perl
+au BufNewFile,BufRead *.{md,mdown,mkd,mkdn,markdown,mdwn} set filetype=markdown
+au BufRead,BufNewFile *.json setf json
+au FileType json set filetype=javascript foldmethod=syntax
+
+" -----------------------------------------------------------------------------
+" Extra
+" -----------------------------------------------------------------------------
+
+" ctags
+set tags=./tags,./../tags,./../../tags,./../../../tags,tags
+nmap ,ct :!(cd %:p:h;ctags *)&
+
